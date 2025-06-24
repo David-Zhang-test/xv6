@@ -693,3 +693,35 @@ procdump(void)
     printf("\n");
   }
 }
+
+
+int
+count_process(int status_type){
+  struct proc *p;
+  int count = 0;
+  enum procstate state;
+
+  acquire(&pid_lock);
+
+  switch (status_type){
+    case 1:
+      state = RUNNING;
+      break;
+    case 2:
+      state = RUNNABLE;
+      break;
+    case 3:
+      state = SLEEPING;
+      break;
+    default:
+      release(&pid_lock);
+      return -1; // Invalid
+  }
+  for (p = proc; p < &proc[NPROC]; p++) {
+    if (p->state == state) {
+      count++;
+    }
+  }
+  release(&pid_lock);
+  return count;
+}

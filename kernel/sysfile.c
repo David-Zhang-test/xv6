@@ -503,3 +503,16 @@ sys_pipe(void)
   }
   return 0;
 }
+
+
+uint64
+sys_hello(void) {
+
+  printf("Hello syscall from xv6!\n");
+
+  return 0;
+
+}
+
+
+

@@ -91,3 +91,10 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_process(void){
+  int status_type;
+  argint(0, &status_type);  //a0
+  return count_process(status_type);
+}
